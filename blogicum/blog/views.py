@@ -43,17 +43,20 @@ posts = [
     },
 ]
 
+
 def index(request):
     context = {
         'posts': posts,
     }
     return render(request, 'blog/index.html', context)
 
+
 def post_detail(request, id):
     context = {
         'post': posts[id],
     }
     return render(request, 'blog/detail.html', context)
+
 
 def category_posts(request, category_slug):
     context = {
