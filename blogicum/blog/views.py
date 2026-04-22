@@ -1,7 +1,7 @@
 from typing import TypedDict
 
-from django.shortcuts import render
 from django.http import Http404
+from django.shortcuts import render
 
 
 class Post(TypedDict):
