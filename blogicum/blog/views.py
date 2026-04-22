@@ -64,7 +64,7 @@ for post in posts:
 
 
 def index(request):
-    return render(request, 'blog/index.html', { 'posts': sorted_posts })
+    return render(request, 'blog/index.html', {'posts': sorted_posts})
 
 
 def post_detail(request, id):
@@ -72,13 +72,11 @@ def post_detail(request, id):
         raise Http404(f'Пост с id: {id} не найден.')
     else:
         return render(request,
-                        'blog/detail.html', 
-                        { 'post': sorted_posts[str(id)] }
-                    )
+                        'blog/detail.html',
+                        {'post': sorted_posts[str(id)]})
 
 
 def category_posts(request, category_slug):
     return render(request,
                     'blog/category.html',
-                    { 'category_slug': category_slug }
-                )
+                    {'category_slug': category_slug})
