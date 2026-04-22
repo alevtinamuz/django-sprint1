@@ -3,12 +3,14 @@ from typing import TypedDict
 from django.shortcuts import render
 from django.http import Http404
 
+
 class Post(TypedDict):
     id: int
     location: str
     date: str
     category: str
     text: str
+
 
 posts: list[Post] = [
     {
@@ -62,14 +64,17 @@ for post in posts:
 
 
 def index(request):
-    return render(request, 'blog/index.html', {'posts': sorted_posts })
+    return render(request, 'blog/index.html', { 'posts': sorted_posts })
 
 
 def post_detail(request, id):
     if str(id) not in sorted_posts.keys():
         raise Http404(f'Пост с id: {id} не найден.')
     else:
-        return render(request, 'blog/detail.html', { 'post': sorted_posts[str(id)] })
+        return render(request,
+                        'blog/detail.html', 
+                        { 'post': sorted_posts[str(id)] }
+                    )
 
 
 def category_posts(request, category_slug):
