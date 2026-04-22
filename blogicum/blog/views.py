@@ -1,6 +1,16 @@
-from django.shortcuts import render
+from typing import TypedDict
 
-posts = [
+from django.shortcuts import render
+from django.http import Http404
+
+class Post(TypedDict):
+    id: int
+    location: str
+    date: str
+    category: str
+    text: str
+
+posts: list[Post] = [
     {
         'id': 0,
         'location': 'Остров отчаянья',
@@ -43,23 +53,27 @@ posts = [
     },
 ]
 
+sorted_posts = dict()
+
+for post in posts:
+    if str(post['id']) not in sorted_posts.keys():
+        sorted_posts[str(post['id'])] = post
+    sorted_posts = dict(sorted(sorted_posts.items()))
+
 
 def index(request):
-    context = {
-        'posts': posts,
-    }
-    return render(request, 'blog/index.html', context)
+    return render(request, 'blog/index.html', {'posts': sorted_posts })
 
 
 def post_detail(request, id):
-    context = {
-        'post': posts[id],
-    }
-    return render(request, 'blog/detail.html', context)
+    if str(id) not in sorted_posts.keys():
+        raise Http404(f'Пост с id: {id} не найден.')
+    else:
+        return render(request, 'blog/detail.html', { 'post': sorted_posts[str(id)] })
 
 
 def category_posts(request, category_slug):
-    context = {
-        'category_slug': category_slug,
-    }
-    return render(request, 'blog/category.html', context)
+    return render(request,
+                    'blog/category.html',
+                    { 'category_slug': category_slug }
+                )
