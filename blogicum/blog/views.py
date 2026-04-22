@@ -55,13 +55,7 @@ posts: list[Post] = [
     },
 ]
 
-sorted_posts = dict()
-
-for post in posts:
-    if str(post['id']) not in sorted_posts.keys():
-        sorted_posts[str(post['id'])] = post
-    sorted_posts = dict(sorted(sorted_posts.items()))
-
+sorted_posts = dict(sorted({ post['id']:post for post in posts }.items()))
 
 def index(request):
     return render(request, 'blog/index.html', {'posts': sorted_posts})
@@ -70,10 +64,9 @@ def index(request):
 def post_detail(request, id):
     if str(id) not in sorted_posts.keys():
         raise Http404(f'Пост с id: {id} не найден.')
-    else:
-        return render(request,
-                      'blog/detail.html',
-                      {'post': sorted_posts[str(id)]})
+    return render(request,
+                  'blog/detail.html',
+                  {'post': sorted_posts[str(id)]})
 
 
 def category_posts(request, category_slug):
