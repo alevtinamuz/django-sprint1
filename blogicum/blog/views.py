@@ -63,11 +63,11 @@ def index(request):
 
 
 def post_detail(request, id):
-    if str(id) not in sorted_posts.keys():
+    if id not in sorted_posts.keys():
         raise Http404(f'Пост с id: {id} не найден.')
     return render(request,
                   'blog/detail.html',
-                  {'post': sorted_posts[str(id)]})
+                  {'post': sorted_posts[id]})
 
 
 def category_posts(request, category_slug):
