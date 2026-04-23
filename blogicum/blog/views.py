@@ -55,7 +55,8 @@ posts: list[Post] = [
     },
 ]
 
-sorted_posts = dict(sorted({ post['id']:post for post in posts }.items()))
+sorted_posts = dict(sorted({post['id']: post for post in posts}.items()))
+
 
 def index(request):
     return render(request, 'blog/index.html', {'posts': sorted_posts})
