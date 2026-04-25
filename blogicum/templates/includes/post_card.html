@@ -12,3 +12,12 @@
     </a>
   </li>
 </ul>
+{% if detail == True %}
+  <p>
+    {{ post.text|linebreaks }}
+  </p>
+{% else %}
+  <p>
+    {{ post.text|truncatewords:10 }}
+  </p>
+{% endif %}
