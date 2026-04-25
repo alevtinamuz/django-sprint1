@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render
 
-posts: list[dict[str: int|str]] = [
+posts: list[dict[str: int | str]] = [
     {
         'id': 0,
         'location': 'Остров отчаянья',
@@ -44,10 +44,10 @@ posts: list[dict[str: int|str]] = [
     },
 ]
 
-sorted_posts: list[tuple[int, dict[str: int|str]]] = sorted(
+sorted_posts: list[tuple[int, dict[str: int | str]]] = sorted(
     {post['id']: post for post in posts}.items()
 )
-posts_by_id: dict[int: dict[str: int|str]] = dict(sorted_posts)
+posts_by_id: dict[int: dict[str: int | str]] = dict(sorted_posts)
 
 
 def index(request):
